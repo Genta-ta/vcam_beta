@@ -1,8 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
     <application
-        android:label="VCam Kosongan"
+        android:label="VCam Beta"
         android:theme="@android:style/Theme.DeviceDefault">
+        
+        <meta-data
+            android:name="xposedmodule"
+            android:value="true" />
+        <meta-data
+            android:name="xposeddescription"
+            android:value="Virtual Camera Module Beta" />
+        <meta-data
+            android:name="xposedminversion"
+            android:value="101" />
+        
+        <meta-data
+            android:name="xposedscope"
+            android:resource="@array/xposed_scope" />
+
         <activity 
             android:name=".MainActivity"
             android:exported="true">
