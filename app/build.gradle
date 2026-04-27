@@ -1,7 +1,11 @@
-plugins { id 'com.android.application' version '8.4.0' }
+plugins {
+    id 'com.android.application' version '8.4.0'
+}
+
 android {
     namespace 'com.gentata.vcam'
     compileSdk 34
+
     defaultConfig {
         applicationId "com.gentata.vcam"
         minSdk 26
@@ -10,6 +14,10 @@ android {
         versionName "1.0"
     }
 }
+
 dependencies {
+    // Cara Normal: Ambil otomatis dari server Maven
+    compileOnly 'io.github.libxposed:api:1.0.0'
+    
     implementation 'androidx.appcompat:appcompat:1.6.1'
 }
