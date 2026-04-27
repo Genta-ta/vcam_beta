@@ -5,23 +5,51 @@ plugins {
 android {
     namespace 'com.gentata.vcam'
     compileSdk 34
+    
     defaultConfig {
         applicationId "com.gentata.vcam"
         minSdk 26
         targetSdk 34
         versionCode 1
-        versionName "1.0"
+        versionName "1.0-BETA-RELEASE"
         
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        
+        // Penanganan arsitektur CPU untuk library native FFmpeg
         ndk {
-            abiFilters 'armeabi-v7a', 'arm64-v8a'
+            abiFilters 'armeabi-v7a', 'arm64-v8a', 'x86', 'x86_64'
         }
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+        debug {
+            debuggable true
+        }
+    }
+    
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
+    
+    packagingOptions {
+        pickFirst 'lib/*/libffmpegkit.so'
     }
 }
 
 dependencies {
-    compileOnly 'io.github.libxposed:api:101.0.1'
-    implementation 'androidx.appcompat:appcompat:1.6.1'
+    // Framework Xposed (Wajib compileOnly agar tidak duplikat di sistem)
+    compileOnly 'io.github.libxposed:api:100'
     
-    // Versi fix hasil temuanmu
-    implementation 'io.github.nikita36078:ffmpeg-kit:6.0.LTS'
+    // UI Framework
+    implementation 'androidx.appcompat:appcompat:1.6.1'
+    implementation 'com.google.android.material:material:1.11.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
+    
+    // FFmpeg Engine (Versi Full untuk dukungan protokol streaming maksimal)
+    implementation 'com.arthenica:ffmpeg-kit-full:4.5'
 }
