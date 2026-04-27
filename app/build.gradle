@@ -5,6 +5,7 @@ plugins {
 android {
     namespace 'com.gentata.vcam'
     compileSdk 34
+
     defaultConfig {
         applicationId "com.gentata.vcam"
         minSdk 26
@@ -12,15 +13,11 @@ android {
         versionCode 1
         versionName "1.0"
     }
-    
-    // Ini rahasianya: Gabungkan source code API langsung ke proses build
-    sourceSets {
-        main {
-            java.srcDirs += '../libxposed-source'
-        }
-    }
 }
 
 dependencies {
+    // Sesuai foto: pakai compileOnly dan versi 101.0.1
+    compileOnly 'io.github.libxposed:api:101.0.1'
+    
     implementation 'androidx.appcompat:appcompat:1.6.1'
 }
