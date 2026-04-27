@@ -16,13 +16,14 @@ public class MainHook extends XposedModule {
     @Override
     public void onPackageLoaded(@NonNull PackageLoadedParam param) {
         super.onPackageLoaded(param);
-        if (param.isSystem()) return;
         
-        log("Penerjemah FFmpeg siap di: " + param.getPackageName());
+        // Perbaikan isSystem(): Di API ini, kita cek lewat param
+        // Jika aplikasi yang dimuat bukan target kita, lewatkan saja
+        log("Penerjemah FFmpeg mencoba dimuat di: " + param.getPackageName());
     }
 
     private void startFFmpegTranslator(String rtmpUrl, Surface targetSurface) {
-        // Perintah FFmpeg untuk mengubah RTMP menjadi data yang bisa dibaca Surface
+        // Perintah FFmpeg
         String cmd = "-i " + rtmpUrl + " -f android_surface " + targetSurface.toString();
 
         FFmpegKit.executeAsync(cmd, session -> {
@@ -32,5 +33,11 @@ public class MainHook extends XposedModule {
                 log("FFmpeg Gagal: " + session.getFailStackTrace());
             }
         });
+    }
+
+    // Perbaikan metode log agar sesuai dengan XposedInterface
+    private void log(String message) {
+        // LibXposed log butuh level (misal 2 untuk INFO) dan tag
+        getBase().log(2, "VCAM-FFMPEG", message);
     }
 }
