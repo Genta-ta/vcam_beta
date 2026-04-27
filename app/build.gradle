@@ -22,6 +22,7 @@ dependencies {
     compileOnly 'io.github.libxposed:api:101.0.1'
     implementation 'androidx.appcompat:appcompat:1.6.1'
     
-    // Panggil file manual yang barusan kita download
-    implementation fileTree(dir: 'libs', include: ['*.aar'])
+    // Menggunakan artefak yang kamu temukan di Sonatype
+    // Sesuaikan versi jika di website tertulis berbeda (misal: 4.5.1 atau 6.0)
+    implementation 'io.github.nikita36078:ffmpeg-kit:4.5'
 }
