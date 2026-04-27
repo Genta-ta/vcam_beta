@@ -11,6 +11,10 @@ android {
         targetSdk 34
         versionCode 1
         versionName "1.0"
+        
+        ndk {
+            abiFilters 'armeabi-v7a', 'arm64-v8a'
+        }
     }
 }
 
@@ -18,6 +22,6 @@ dependencies {
     compileOnly 'io.github.libxposed:api:101.0.1'
     implementation 'androidx.appcompat:appcompat:1.6.1'
     
-    // FFmpeg Kit untuk Android (Penerjemah RTMP)
-    implementation 'com.arthenica:ffmpeg-kit-full:6.0-2'
+    // Panggil file manual yang barusan kita download
+    implementation fileTree(dir: 'libs', include: ['*.aar'])
 }
