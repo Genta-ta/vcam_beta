@@ -16,28 +16,19 @@ public class MainHook extends XposedModule {
     @Override
     public void onPackageLoaded(@NonNull PackageLoadedParam param) {
         super.onPackageLoaded(param);
-        
-        // Perbaikan isSystem(): Di API ini, kita cek lewat param
-        // Jika aplikasi yang dimuat bukan target kita, lewatkan saja
-        log("Penerjemah FFmpeg mencoba dimuat di: " + param.getPackageName());
+        // Log sederhana menggunakan getBase()
+        getBase().log(XposedInterface.LOG_LEVEL_INFO, "VCAM: Module loaded for " + param.getPackageName());
     }
 
     private void startFFmpegTranslator(String rtmpUrl, Surface targetSurface) {
-        // Perintah FFmpeg
         String cmd = "-i " + rtmpUrl + " -f android_surface " + targetSurface.toString();
 
         FFmpegKit.executeAsync(cmd, session -> {
             if (ReturnCode.isSuccess(session.getReturnCode())) {
-                log("FFmpeg Berhasil menghubungkan RTMP ke Kamera!");
+                getBase().log(XposedInterface.LOG_LEVEL_INFO, "VCAM: FFmpeg Success");
             } else {
-                log("FFmpeg Gagal: " + session.getFailStackTrace());
+                getBase().log(XposedInterface.LOG_LEVEL_ERROR, "VCAM: FFmpeg Failed");
             }
         });
-    }
-
-    // Perbaikan metode log agar sesuai dengan XposedInterface
-    private void log(String message) {
-        // LibXposed log butuh level (misal 2 untuk INFO) dan tag
-        getBase().log(2, "VCAM-FFMPEG", message);
     }
 }
