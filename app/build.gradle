@@ -5,7 +5,6 @@ plugins {
 android {
     namespace 'com.gentata.vcam'
     compileSdk 34
-
     defaultConfig {
         applicationId "com.gentata.vcam"
         minSdk 26
@@ -16,8 +15,9 @@ android {
 }
 
 dependencies {
-    // Sesuai foto: pakai compileOnly dan versi 101.0.1
     compileOnly 'io.github.libxposed:api:101.0.1'
-    
     implementation 'androidx.appcompat:appcompat:1.6.1'
+    
+    // FFmpeg Kit untuk Android (Penerjemah RTMP)
+    implementation 'com.arthenica:ffmpeg-kit-full:6.0-2'
 }
